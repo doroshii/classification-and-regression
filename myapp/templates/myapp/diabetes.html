@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        /* Add custom styles if needed */
+        .form-container {
+            width: 50%;
+            float: left;
+        }
+
+        .result-container {
+            width: 50%;
+            float: left;
+            padding: 20px;
+        }
+    </style>
+    <title>Predicted whether diabetic or not</title>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="form-container">
+            <div class="col-md-7">
+                <h1>Diabetes Classifier</h1>
+                <br>
+                <h4>Provide the following info:</h4>
+            </div>
+            <div class="col align-self-center">
+                <form action='/classify' method='get'>
+                    <!-- Your form inputs go here -->
+                    <div class="form-group">
+                        <label for="preg">No. of pregnancies [0 - 20]</label>
+                        <input type="text" class="form-control" name="preg">
+                    </div>
+                    <!-- Add other form inputs as needed -->
+
+                    <button type='submit' class='btn btn-primary'>Predict</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="result-container">
+            <div class="col-md-7">
+                <h1>Predicted whether diabetic or not</h1>
+                <br>
+                <br>
+                <h2>{{ Category }}</h2>
+                <a class="btn btn-primary" href="{% url 'index' %}" role="button">Back</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha3849/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+</body>
+</html>

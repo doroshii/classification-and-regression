@@ -1,0 +1,242 @@
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <!-- Required meta tags --> 
+    <meta charset="utf-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> 
+    <!-- Bootstrap CSS --> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
+
+<title>Diabetes Classifier</title> 
+</head> 
+
+<style>
+    body {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        font-family: 'poppins',sans-serif;
+        font-size: 12px;
+    }
+
+    .container-box {
+        position: relative;
+        min-height: 80vh; /* Adjust the value as needed */
+        z-index: 0;
+        background: #69275c;
+        padding: 20px; /* Adjust the padding as needed */
+        justify-content: center;
+        display: grid;
+        grid-template-rows: 1fr auto 1fr;
+        align-items: center;
+    }
+
+    .container {
+        max-width: 5000px;
+        margin-top: 0 auto;
+    }
+
+    .container-box h1{
+        text-align: center;
+        font-size: 2.5rem;
+        font-weight: 400;
+        color: #fff;
+    }
+
+    .container-box h4{
+        line-height: 20px;
+        margin-bottom: 5px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #69275c;
+        text-align: center;
+    }
+
+.container-box .main{
+    position: relative;
+    display: flex;
+    margin: 30px 0;
+}
+
+.content{
+    flex-basis: 50%;
+    padding: 3em 3em;
+    background: #fff;
+    box-shadow: 2px 9px 49px -17px rgba(156, 39, 148, 0.1);
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+    .result-container {
+        flex-basis: 50%;
+        background: #fff;
+        background-size: cover;
+        padding: 3em 3em;
+        border-top-right-radius: 8px;
+        border-bottom-right-radius: 8px;
+        align-items: center;
+        color: #000;
+    }
+
+ .result-container h1{
+        line-height: 20px;
+        margin-bottom: 30px;
+        font-size: 20px;
+        font-weight: 500;
+        color: #69275c;
+        text-align: center;
+        margin-bottom: 50px;
+    } 
+
+    .result-container h2 {
+        text-align: center;
+        font-size: 3.5rem;
+        font-weight: 400;
+        color: #000;
+    }
+
+    .btn,
+button,
+input{
+    border-radius: 35px;
+}
+.btn:hover,
+button:hover{
+    color: #97359c;
+    transition: 0.5s ease;
+}
+
+.container-box form{
+    margin: 30px 0;
+}
+
+.container-box input,
+textarea{
+    outline: none;
+    margin-bottom: 15px;
+    font-stretch: 16px;
+    color: #999;
+    padding: 14px 20px;
+    width: 100%;
+    display: flex;
+    box-sizing: border-box;
+    border: none;
+    background: #cdcbcb4f;
+    transition: 0.3s ease;
+}
+
+.container-box input:focus{
+    background: transparent;
+    border: 1px solid #69275c;
+}
+.container-box button{
+    font-size: 14px;
+    color: #fff;
+    width: 100%;
+    background: #6d1d5d;
+    font-weight: 600;
+    transition: 0.3s ease;
+    padding: 14px 100px;
+    border: 1px solid #69275c;
+
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    height: calc(1.5em + 0.75rem + 2px);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.9rem;
+    font-weight: 400;
+    line-height: 1.0;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    opacity: 1;
+}
+
+</style>
+
+<body> 
+    <div class="container-box">
+        <h1>Diabetes Classifier</h1> 
+        <div class="container">
+            <div class="main">
+                <div class="content"> 
+                <h4>Provide the following info:</h4>
+                <form action='/classify' method='get'> 
+                        <div>
+                            {% comment %} <label for="preg">No. of pregnancies [0 - 20]</label> {% endcomment %}
+                            <input type="number" id="preg" name="preg" placeholder="Enter No. of Pregnancies" min="0" max="20"> 
+                        </div>
+                    
+                        <div>
+                            {% comment %} <label for="gluc">Amount of Glucose [0 - 250]</label> {% endcomment %}
+                            <input type="number" id-"gluc" name="gluc" placeholder="Enter Amount of Glucose" min="0" max="250">
+                        </div>
+                    
+                        <div class="form-group">
+                            {% comment %} <label for="blood">Blood pressure [0 - 140]</label> {% endcomment %}
+                            <input type="number" id="blood" name="blood" placeholder="Enter Blood Pressure" min="0" max="140">
+                        </div>
+                    
+                        <div class="form-group">
+                            {% comment %} <label for="skin">Skin Thickness [0-100]</label> {% endcomment %}
+                            <input type="number" id="skin" name="skin" placeholder="Enter Skin Thickness" min="0" max="100">
+                        </div>
+                    
+                        <div class="form-group">
+                            {% comment %} <label for="ins">Insulin [0-900]</label> {% endcomment %}
+                            <input type="number" id="ins" name="ins" placeholder="Enter Insulin" min="0" max="900">
+                        </div>
+                    
+                        <div class="form-group">
+                            {% comment %} <label for="bmi">BMI [0-70]</label> {% endcomment %}
+                            <input type="number" id="bmi" name="bmi" placeholder="Enter BMI" min="0" max="70">
+                        </div>
+                    
+                        <div class="form-group">
+                            {% comment %} <label for="dbf">Diabetes Pedigree Function [0-2.5]</label> {% endcomment %}
+                            <input type="number" id="dbf" name="dbf" placeholder="Enter DBF" min="0" max="2.5" step="any">
+                        </div>
+                    
+                        <div class="form-group">
+                            {% comment %} <label for="age">Age [18-90]</label> {% endcomment %}
+                            <input type="number" id="age" name="age" placeholder="Enter Your Age">
+                        </div>
+                        <button type='submit' class='btn btn-primary'>Predict</button>
+                    </form>
+                </div>
+
+            <div class="result-container"> 
+                <h1>Are you Diabetic or Not?</h1>
+                    <h2>{{ Category }}</h2>
+                    <!-- Add a back button or any other elements you need -->
+                    {% comment %} {% if Category == "Diabetic" %}
+                    <p>You are Diabetic!</p>
+                    <img src="path/to/diabetic-image.jpg" alt="Diabetic Image" class="img-fluid">
+                {% elif Category == "Non-Diabetic" %}
+                    <p>You are Non-Diabetic!</p>
+                    <img src="path/to/non-diabetic-image.jpg" alt="Non-Diabetic Image" class="img-fluid">
+                {% else %}
+                    <!-- Handle other categories if needed -->
+                {% endif %} {% endcomment %}
+                </div>
+            </div>
+        </div>
+    
+        <!-- Optional JavaScript --> 
+        <!-- jQuery first, then Popper.js, then Bootstrap JS --> 
+        
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha3849/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script> 
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script> 
+    </body> 
+    </html>
